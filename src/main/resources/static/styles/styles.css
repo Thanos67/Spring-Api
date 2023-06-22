@@ -1,50 +1,86 @@
-/* Change the background color of the body */
-body {
-  background-color: #f2f2f2;
-}
+ body {
+            background-color: #f8f9fa;
+        }
 
-/* Style the header */
-h2 {
-  font-size: 28px;
-  color: #333;
-  margin-bottom: 20px;
-}
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding-top: 50px;
+        }
 
-/* Style the table */
-table {
-  border-collapse: collapse;
-  width: 100%;
-  margin-bottom: 20px;
-}
+        h2 {
+            color: #007bff;
+        }
 
-/* Style the table header row */
-thead tr {
-  border-bottom: 2px solid #333;
-}
+        table {
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse;
+            background-color: #ffffff;
+        }
 
-/* Style the table header cells */
-thead th {
-  padding: 10px;
-  text-align: left;
-  font-weight: bold;
-}
+        th, td {
+            text-align: left;
+            padding: 12px;
+            border-bottom: 1px solid #dee2e6;
+        }
 
-/* Style the table data rows */
-tbody tr {
-  border-bottom: 1px solid #ccc;
-}
+        th {
+            background-color: #007bff;
+            color: #ffffff;
+        }
 
-/* Style the table data cells */
-tbody td {
-  padding: 10px;
-}
+        th:first-child, td:first-child {
+            border-top-left-radius: 5px;
+            border-bottom-left-radius: 5px;
+        }
 
-/* Style the "Add a new user" link */
-a {
-  color: #333;
-  text-decoration: none;
-}
+        th:last-child, td:last-child {
+            border-top-right-radius: 5px;
+            border-bottom-right-radius: 5px;
+        }
 
-a:hover {
-  text-decoration: underline;
-}
+        .btn {
+            margin-left: 5px;
+            margin-right: 5px;
+        }
+
+        .btn-info {
+            background-color: #17a2b8;
+            border-color: #17a2b8;
+        }
+
+        .btn-info:hover {
+            background-color: #138496;
+            border-color: #138496;
+        }
+
+        .btn-danger {
+            background-color: #dc3545;
+            border-color: #dc3545;
+        }
+
+        .btn-danger:hover {
+            background-color: #c82333;
+            border-color: #c82333;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+
+        .btn-primary:hover {
+            background-color: #0062cc;
+            border-color: #0062cc;
+        }
+
+        .btn-link {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .btn-link:hover {
+            color: #0056b3;
+            text-decoration: none;
+        }

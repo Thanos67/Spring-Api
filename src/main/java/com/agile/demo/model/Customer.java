@@ -5,6 +5,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Entity
 @Data
@@ -17,9 +20,16 @@ public class Customer {
     @Column(name="id")
     private Long id;
     @Column(name="firstName")
+    @NotNull
+    @Size(min = 2, max = 50)
     private String firstName;
     @Column(name="lastName")
+    @NotNull
+    @Size(min = 2, max = 50)
     private String lastName;
     @Column(name="emailName")
+    @NotNull
+    @Size(min = 2, max = 50)
+    @Email
     private String email;
 }

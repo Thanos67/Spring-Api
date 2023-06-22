@@ -1,48 +1,59 @@
 package com.agile.demo.controller;
 
+import com.agile.demo.DTO.CustomerDTO;
 import com.agile.demo.model.Customer;
 import com.agile.demo.service.CustomerService;
+import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
-@RequestMapping( "/customer")
+@RequiredArgsConstructor
+@RequestMapping( "/customers")
 public class CustomerController {
 
-    @Autowired
-    private CustomerService customerService;
+    private final CustomerService customerService;
+    private ModelMapper modelMapper;
 
-    @GetMapping("/getAll")
+    @GetMapping("/")
     public String  getAllCustomers(Model model){
-        model.addAttribute("customers", customerService.getAllCustomers());
+        model.addAttribute("customers", customerService.getAllCustomers()
+                .stream()
+                .map(customer -> modelMapper.map(customer, CustomerDTO.class))
+                .collect(Collectors.toList()));
         return "index";
     }
+
     @GetMapping("/create")
-    public String create(Customer customer) {
+    public String create(CustomerDTO customerDTO) {
         return "add-customer";
     }
-    @PostMapping("/add")
-    public String create(@Valid Customer customer, Model model) {
-        customerService.createCustomer(customer);
-        return "redirect:/customer/getAll";
+
+    @PostMapping("/")
+    public String create(@Valid CustomerDTO customerDTO, Model model) {
+        Customer c = modelMapper.map(customerDTO, Customer.class);
+        customerService.createCustomer(c);
+        return "redirect:/customers/";
     }
+
     @GetMapping("/{id}")
-    public String update(@PathVariable("id") long id,Model model) {
+    public String getCustomer(@PathVariable("id") long id,Model model) {
+
         Customer customer = customerService.getCustomerById(id);
 
-        model.addAttribute("customer", customer);
+        CustomerDTO customerDTO = modelMapper.map(customer, CustomerDTO.class);
+
+        model.addAttribute("customer", customerDTO);
         return "update-customer";
 
     }
+
     @GetMapping("/edit/{id}")
     public String edit(@PathVariable("id") long id,Model model) {
         Customer customer = customerService.getCustomerById(id);
@@ -51,15 +62,18 @@ public class CustomerController {
         return "update-customer";
 
     }
-    @PostMapping("/update/{id}")
-    public String updateUser(@PathVariable("id") long id, Model model,@Valid Customer customer) {
+
+    @PutMapping("/{id}")
+    public String updateUser(@Valid CustomerDTO customerDTO) {
+        Customer customer= modelMapper.map(customerDTO,Customer.class);
         customerService.createCustomer(customer);
-        return "redirect:/customer/getAll";
+        return "redirect:/customers/";
     }
-    @GetMapping("delete/{id}")
+
+    @GetMapping("/delete/{id}")
     public String delete(@PathVariable long id) {
-        Customer deleteCustomer = customerService.getCustomerById(id);
-        customerService.deleteCustomer(deleteCustomer);
-        return "redirect:/customer/getAll";
+        Customer customer = customerService.getCustomerById(id);
+        customerService.deleteCustomer(customer);
+        return "redirect:/customers/";
     }
 }
