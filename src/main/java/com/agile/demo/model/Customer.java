@@ -1,33 +1,33 @@
 package com.agile.demo.model;
 
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.extern.jackson.Jacksonized;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-import javax.persistence.*;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 
-@Entity
+
 @Data
+@Builder
+@Jacksonized
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name="customers")
+@Document(collection = "customers")
 public class Customer {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name="id")
     private Long id;
-    @Column(name="firstName")
     @NotNull
     @Size(min = 2, max = 50)
     private String firstName;
-    @Column(name="lastName")
     @NotNull
     @Size(min = 2, max = 50)
     private String lastName;
-    @Column(name="emailName")
     @NotNull
     @Size(min = 2, max = 50)
     @Email
